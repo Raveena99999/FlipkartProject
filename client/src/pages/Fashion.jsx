@@ -13,6 +13,8 @@ export default function Fashion() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials:"include",
+      mode:"cors"
     });
     let data = await res.json();
     setfashionData(data);
@@ -53,7 +55,7 @@ export default function Fashion() {
           w="96%"
           m="auto"
         >
-          {fashionData.map((ele) => (
+          {fashionData?.map((ele) => (
             <Box
               key={ele._id}
               p="1rem"
@@ -76,9 +78,9 @@ export default function Fashion() {
               <Text fontSize="1rem" mt="0.5rem" fontWeight="semibold">
                 {ele.brand}
               </Text>
-              <Text fontSize="1rem" color="green" fontWeight="semibold">
-                {ele.size}
-              </Text>
+              {/* <Text fontSize="1rem" color="green" fontWeight="semibold">
+                size:{ele.size}
+              </Text> */}
               <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
                 {ele.color}
               </Text>

@@ -1,8 +1,9 @@
 const express = require("express")
 const furnitureRouter = express.Router()
 const {FurnitureModel} = require("../models/furnitureModel")
+const {auth} =require("../middlewares/Authmiddleware")
 
-furnitureRouter.get("/",async(req,res)=>{
+furnitureRouter.get("/",auth,async(req,res)=>{
     try {
         const furniture = await FurnitureModel.find()
         console.log(furniture)

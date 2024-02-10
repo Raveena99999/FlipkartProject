@@ -13,12 +13,21 @@ import {
   Stack,
   Image,
   Box,
+  
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-// import { Authcontext } from '../authcontext/Authcontextprovider'
+import { Link } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import { Authcontext } from "../authcontext/Authcontextprovider";
+
 export default function Login() {
   const [userdetails, setUserdetails] = useState({ email: "", password: "" });
+  const { setIsLogin } = useContext(Authcontext);
+
+  const navigate = useNavigate();
+  const toast = useToast();
 
   function handleChange(e) {
     setUserdetails({
@@ -36,13 +45,50 @@ export default function Login() {
         mode: "cors",
         body: JSON.stringify(userdetails),
       });
-      let result = await res.json();
-      console.log(result);
-      if (result.ok) {
-        console.log(result.ok);
-        console.log("login successful", result.message);
+      
+
+      const data = await res.json();
+      if (data.msg === "Login Successful") {
+       setIsLogin(true)
+      //   setEmail(userdetails.email);
+      // localStorage.setItem("email", userdetails.email);
+        // setIsLoggedIn(true);
+        toast({
+          position:"top",
+          title: "Logged In",
+          description: "You Logged in Successfully",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+
+
+      } else {
+        // setIsLoggedIn(false);
+        setIsLogin(false)
+        toast({
+          position:"top",
+
+          title: "Invalid Credential",
+          description: "Please enter valid credentials",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
       }
+      
     } catch (error) {
+      setIsLogin(false)
+
+      // toast({
+      //   position: "top",
+
+      //   title: "Error",
+      //   description: error.message,
+      //   status: "error",
+      //   duration: 5000,
+      //   isClosable: true,
+      // });
       console.log("login failed", error);
     }
   }
@@ -113,6 +159,15 @@ export default function Login() {
               >
                 Continue
               </Button>
+
+              <Flex m="auto" color="rgba(0, 83, 160, 1)" fontWeight="bold">
+                
+                <Text >New to Flipkart?</Text>
+                <Link to="/signup" onClick={() => navigate("/signup")}>Sign up</Link>
+                </Flex>
+
+
+
             </Stack>
           </Stack>
         </Flex>

@@ -23,9 +23,12 @@ const auth = async(req,res,next)=>{
                            accessTokenKey,
                            {
                              expiresIn: "2m",
+                             
                            }
                          );
-                         res.cookie["accessToken"] = newToken;
+                        //  res.cookie["accessToken"] = newToken;
+                        res.cookie("accessToken", newToken,{httpOnly:true,secure:true,sameSite:"none"});
+
                          next();
                        } else {
                          res.status(400).send({ msg: "Please Login first" });

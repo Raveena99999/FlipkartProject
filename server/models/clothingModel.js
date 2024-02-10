@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const clothingSchema = mongoose.Schema({
   poster:String,
   brand:String,
-  size:Number,
+  size:String,
   color:String,
   material:String,
   price:Number,

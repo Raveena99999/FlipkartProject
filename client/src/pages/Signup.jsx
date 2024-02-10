@@ -13,11 +13,14 @@ import {
   Image,
   Box,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import { useToast } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useContext, useEffect } from "react";
 import { Authcontext } from "../authcontext/Authcontextprovider";
+import { Link } from "react-router-dom";
 export default function Signup() {
   const [userdetails, setUserdetails] = useState({
     username: "",
@@ -25,6 +28,8 @@ export default function Signup() {
     password: "",
   });
   const { setUsername } = useContext(Authcontext);
+  const navigate = useNavigate();
+
   const toast = useToast();
   function handleUserdetails(e) {
     console.log(e.target.value);
@@ -157,6 +162,15 @@ export default function Signup() {
               >
                 Continue
               </Button>
+
+
+              <Flex m="auto" color="rgba(0, 83, 160, 1)" fontWeight="bold">
+                
+              <Text >Existing User?</Text>
+              <Link to="/login" onClick={() => navigate("/login")}>Log in</Link>
+              </Flex>
+
+
             </Stack>
           </Stack>
         </Flex>

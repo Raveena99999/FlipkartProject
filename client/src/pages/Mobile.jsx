@@ -8,7 +8,7 @@ export default function Mobile() {
   return (
 <Box>
       <Navbar/>
-      <Electronics/>
+      {/* <Electronics/> */}
       <Footer/>
     </Box>  )
 }

@@ -8,7 +8,7 @@ export default function Beauty() {
   const scrollRef = useRef(null);
 
   async function fetchData() {
-    let res = await fetch(`http://localhost:8080/beauty`, {
+    let res = await fetch(`http://localhost:8080/beauty/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export default function Beauty() {
             },
           }}
         >
-          {beautyData.map((ele) => (
+          {beautyData?.map((ele) => (
             <Box
               key={ele._id}
               p="1rem"

@@ -13,6 +13,8 @@ export default function Grocery() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials:"include",
+      mode:"cors"
     });
     let data = await res.json();
     setfurnitureData(data);
@@ -49,7 +51,7 @@ export default function Grocery() {
           w="96%"
           m="auto"
         >
-          {furnitureData.map((ele) => (
+          {furnitureData?.map((ele) => (
             <Box
               key={ele._id}
               p="1rem"

@@ -32,26 +32,51 @@ userRouter.post("/login", async (req, res) => {
     const user = await UserModel.findOne({ email });
     if (user) {
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
-      if (!isPasswordCorrect) {
-        throw new Error("Incorrect password");
+      console.log(isPasswordCorrect)
+      // if (!isPasswordCorrect) {
+      //   throw new Error("Incorrect password");
+      // }
+      // var accessToken = jwt.sign({ email, userId: user._id }, accessTokenKey, {
+      //   expiresIn: 120,
+      // });
+      // var refreshToken = jwt.sign(
+      //   { email, userId: user._id },
+      //   refreshTokenKey,
+      //   {
+      //     expiresIn: 180,
+      //   }
+      // );
+      // res.cookie("accessToken", accessToken);
+      // res.cookie("refreshToken", refreshToken);
+      // res.status(200).send({
+      //   msg: "Login Successful",
+      //   token: accessToken,
+      //   refreshToken: refreshToken,
+      // });
+if(isPasswordCorrect){
+  var accessToken = jwt.sign({ email, userId: user._id }, accessTokenKey, {
+      expiresIn: "1h",
+    });
+    var refreshToken = jwt.sign(
+      { email, userId: user._id },
+      refreshTokenKey,
+      {
+        expiresIn: "7d",
       }
-      var accessToken = jwt.sign({ email, userId: user._id }, accessTokenKey, {
-        expiresIn: 120,
-      });
-      var refreshToken = jwt.sign(
-        { email, userId: user._id },
-        refreshTokenKey,
-        {
-          expiresIn: 180,
-        }
-      );
-      res.cookie("accessToken", accessToken);
-      res.cookie("refreshToken", refreshToken);
-      res.status(200).send({
-        msg: "Login Successful",
-        token: accessToken,
-        refreshToken: refreshToken,
-      });
+    );
+    res.cookie("accessToken", accessToken,{httpOnly:true,secure:true,sameSite:"none"});
+    res.cookie("refreshToken", refreshToken,{httpOnly:true,secure:true,sameSite:"none"});
+    res.status(200).send({
+      msg: "Login Successful",
+      token: accessToken,
+      refreshToken: refreshToken,
+    });
+
+}
+else{
+  throw new Error("Incorrect password")
+}
+
     }
   } catch (error) {
     res.status(500).send({ err:error.message });

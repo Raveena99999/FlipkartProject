@@ -13,6 +13,7 @@ import {
   Spacer,
   Box,
   Link,
+  
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
@@ -29,12 +30,38 @@ import { Authcontext } from "../authcontext/Authcontextprovider";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { username, setUsername } = useContext(Authcontext);
+  const { username, setUsername,setSearchData } = useContext(Authcontext);
+  const [search,setSearch] = useState("")
+
   const navigate = useNavigate();
+
+  function handleSearch(event){
+    setSearch(event.target.value)
+  }
+  const queryParams = new URLSearchParams({ productittle: search });
+  async function handleSubmit() {
+    try {
+      
+      const res = await fetch(
+        `http://localhost:8080/allproduct?${queryParams}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      setSearchData(data)
+      navigate("/search")
+    } catch (error) {
+      console.log(error,"error")
+    }
+  }
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername(null);
-    // setUsername("");
   };
 
   return (
@@ -58,14 +85,21 @@ export default function Navbar() {
 
             <BreadcrumbItem>
               <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<Image src={Asset63} />}
-                />
+              
+                 <InputLeftElement width='2.5rem' >
+        <Button h='1.75rem' size='sm' onClick={handleSubmit} bg="white"  >
+          <Image src={Asset63}  />
+        </Button>
+      </InputLeftElement>
+      
                 <Input
+                
                   width="40vw"
                   placeholder="Search for Products, Brands and More"
+                  name="productittle"
+                  onChange={handleSearch}
                 />
+               
               </InputGroup>
             </BreadcrumbItem>
 
@@ -83,7 +117,7 @@ export default function Navbar() {
                   rightIcon={<ChevronDownIcon />}
                   onMouseEnter={() => setIsMenuOpen(true)}
                 >
-                  {username ? username : "Login"}
+                  {username ? username : "Login"} 
                 </MenuButton>
 
                 <MenuList
@@ -91,7 +125,7 @@ export default function Navbar() {
                   onMouseEnter={() => setIsMenuOpen(true)}
                   onMouseLeave={() => setIsMenuOpen(false)}
                 >
-                  {username ? (
+                  {username  ? (
                     <>
                       <MenuItem>My Profile</MenuItem>
                       <Link to="/login" onClick={() => navigate("/login")}>

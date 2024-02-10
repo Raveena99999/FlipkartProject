@@ -7,13 +7,14 @@ export default function Electronics() {
   const scrollRef = useRef(null);
 
   async function fetchData() {
-    let res = await fetch(`http://localhost:8080/electronic`, {
+    let res = await fetch(`http://localhost:8080/electronic/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     let data = await res.json();
+    console.log(data)
     setElectronicData(data);
   }
 
@@ -33,6 +34,7 @@ export default function Electronics() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+    
   }, []);
 
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function Electronics() {
           },
         }}
       >
-        {electronicData.map((ele) => (
+        {electronicData?.map((ele) => (
           <Box
             key={ele._id}
             p="1rem"

@@ -19,12 +19,12 @@ import Grocery from "./pages/Grocery"
 import Mobile from "./pages/Mobile"
 import Appliances from "./pages/Appliances"
 import Travel from "./pages/Travel"
-import Electronics from "./pages/Electronicspage"
 import HomeFurniture from "./pages/HomeFurniture"
 import Twowheelers from "./pages/Twowheelers"
 import BeautyToys from "./pages/BeautyToys"
 import Fashion from "./pages/Fashion"
 import Electronicspage from "./pages/Electronicspage"
+import Search from "./pages/Search"
 function App() {
 
   return (
@@ -39,7 +39,6 @@ function App() {
       
 
       <Authcontextprovider>
-      {/* <Box bg="rgba(245, 245, 245, 1)"> */}
 
           <Routes>
             <Route path="/" element={<Flipkarthome/>}></Route>
@@ -57,6 +56,7 @@ function App() {
            <Route path="/homefurniture" element={<HomeFurniture/>}></Route>
            <Route path="/twowheeler" element={<Twowheelers/>}></Route>
            <Route path="/fashion" element={<Fashion/>}></Route>
+           <Route path="/search" element={<Search/>}></Route>
 
 
 
@@ -64,7 +64,6 @@ function App() {
 
 
           </Routes>
-          {/* </Box> */}
 
       </Authcontextprovider>
      
