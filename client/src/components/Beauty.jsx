@@ -136,14 +136,39 @@ export default function Beauty() {
                 m="auto"
                 borderRadius="5px"
               />
+               <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+              >
+                 {ele.productittle}
+              </Text>
               <Text
                 fontSize="sm"
                 mt="0.5rem"
                 fontWeight="semibold"
                 textAlign="center"
               >
-                Skin Type: {ele.skin_type}
+                 {ele.price}
               </Text>
+              <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+              >
+                only {ele.quantity} left
+              </Text>
+
+              {/* <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+              >
+                Skin Type: {ele.skin_type}
+              </Text> */}
               {/* <Heading as="h4" size="md" textAlign="center" mt="0.5rem">
                 Hair Type: {ele.hair_type}
               </Heading>

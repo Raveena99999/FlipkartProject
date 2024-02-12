@@ -8,10 +8,12 @@ import Flipkartdetails from "./Flipkartdetails";
 import Defaultproduct from "./Defaultproduct";
 import Electronics from "./Electronics";
 import Beauty from "./Beauty";
+import CartSection from "../pages/Cartsection";
 export default function Flipkarthome() {
   return (
     <div>
       <Navbar />
+      <CartSection/>
       <Afternavbar />
       <Swipperslider2 />
       <Electronics />

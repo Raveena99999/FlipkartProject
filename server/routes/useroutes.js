@@ -92,8 +92,8 @@ userRouter.get("/logout", auth, async (req, res) => {
       refreshToken,
     });
     await blacklistedUserToken.save();
-    console.log("user has been logged out")
-    res.status(200).send({ msg: "User has been logged out" });
+    console.log("user has been logged out successfully")
+    res.status(200).send({ msg: "User has been logged out successfully" });
   } catch (error) {
     console.log("error",error)
 

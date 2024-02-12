@@ -16,6 +16,7 @@ const {groceryRouter} = require("./routes/groceryRoute")
 const {clothingRouter} = require("./routes/clothingRoute")
 const {furnitureRouter} = require("./routes/furnitureRoute")
 const {allproductRouter} =require("./routes/allproductroutes")
+const {twowheelerRouter}=require("./routes/twowheelersroutes")
 app.use(express.json())
 app.use(cors({
     origin:"http://127.0.0.1:5173",
@@ -31,6 +32,7 @@ app.use("/beauty",beautyRouter)
 app.use("/grocery",groceryRouter)
 app.use("/clothing",clothingRouter)
 app.use("/furniture",furnitureRouter)
+app.use("/twowheeler",twowheelerRouter)
 app.use("/allproduct",allproductRouter)
 app.listen(port,async()=>{
     try {

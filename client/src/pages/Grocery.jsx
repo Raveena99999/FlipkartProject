@@ -3,9 +3,11 @@ import { Box, Flex, Heading, Image, Text, Button } from "@chakra-ui/react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ReactStars from "react-rating-stars-component";
+import { useCart } from "react-use-cart";
 
 export default function Grocery() {
   const [groceryData, setGroceryData] = useState([]);
+  const {addItem} =useCart()
 
   async function fetchData() {
     let res = await fetch(`http://localhost:8080/grocery`, {
@@ -74,7 +76,7 @@ export default function Grocery() {
                 m="auto"
               />
               <Text fontSize="1rem" mt="0.5rem" fontWeight="semibold">
-                {ele.product_name}
+                {ele.productittle}
               </Text>
               <Text fontSize="1rem" color="green" fontWeight="semibold">
                 Price: {ele.price}
@@ -105,6 +107,8 @@ export default function Grocery() {
                 color="white"
                 mt="1rem"
                 _hover={{ bg: "blue.500" }}
+                onClick={()=>addItem(ele)}
+
               >
                 Add to Cart
               </Button>

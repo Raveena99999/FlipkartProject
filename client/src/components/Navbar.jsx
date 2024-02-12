@@ -15,6 +15,8 @@ import {
   Link,
   
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -30,10 +32,11 @@ import { Authcontext } from "../authcontext/Authcontextprovider";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { username, setUsername,setSearchData } = useContext(Authcontext);
+  const { username, setUsername,setSearchData ,isLogin,setIsLogin} = useContext(Authcontext);
   const [search,setSearch] = useState("")
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   function handleSearch(event){
     setSearch(event.target.value)
@@ -62,7 +65,40 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername(null);
-  };
+  }
+  // async function handleLogout() {
+  //   try {
+  //     const res = await fetch(`http://localhost:8080/logout`, {
+  //       method: "GET",
+  //       credentials: "include",
+  //       mode: "cors",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     let data = await res.json();
+  //     if (data.msg === "User has been logged out successfully" && isLogin) {
+  //       setIsLogin(false);
+  //       toast({
+  //         title: "Logged Out",
+  //         description: "You Logged out successfully",
+  //         status: "success",
+  //         duration: 9000,
+  //         isClosable: true,
+  //       });
+  //     } else {
+  //       toast({
+  //         title: "Error",
+  //         description: "Something went wrong",
+  //         status: "error",
+  //         duration: 9000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log({"error":error.message});
+  //   }
+  // }
 
   return (
     <>
@@ -138,20 +174,21 @@ export default function Navbar() {
                       <Flex>
                         <Text>New customer?</Text>
                         <Spacer />
-                        {/* <Link chakra={Link} color="blue" to="/signup">
-                          Sign Up
-                        </Link> */}
+                       
                         <Link to="/signup" onClick={() => navigate("/signup")}>
                           Sign up
                         </Link>
                       </Flex>
 
-                      {/* <Link chakra={Link} color="blue" to="/login">
-                        Login
-                      </Link> */}
+                    
                       <Link to="/login" onClick={() => navigate("/login")}>
                         Login
                       </Link>
+
+                      <Button onClick={handleLogout} >
+                          Logout 
+                        </Button>
+
 
                       <MenuItem>My Profile</MenuItem>
                       <MenuItem>Flipkart Plus Zone</MenuItem>

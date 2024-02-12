@@ -3,9 +3,11 @@ import { Box, Flex, Heading, Image, Text, Button } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ReactStars from "react-rating-stars-component";
-
+import CartSection from "./Cartsection";
+import { useCart } from "react-use-cart";
 export default function Fashion() {
   const [fashionData, setfashionData] = useState([]);
+  const {addItem} =useCart()
 
   async function fetchData() {
     let res = await fetch(`http://localhost:8080/clothing`, {
@@ -27,6 +29,7 @@ export default function Fashion() {
   return (
     <Box>
       <Navbar />
+      <CartSection/>
       <Box w="96%" m="auto" mt="2%">
         <Heading as="h3" size="lg" mt="1%" ml="3%">
           Shop Your Fashion Needs
@@ -75,29 +78,41 @@ export default function Fashion() {
                 display="block"
                 m="auto"
               />
-              <Text fontSize="1rem" mt="0.5rem" fontWeight="semibold">
-                {ele.brand}
+             <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+              >
+                 {ele.productittle}
+              </Text>
+              <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+                color="green"
+              >
+                 Price:{ele.price}
+              </Text>
+              <Text
+                fontSize="sm"
+                mt="0.5rem"
+                fontWeight="semibold"
+                textAlign="center"
+              >
+                only {ele.quantity} left
               </Text>
               {/* <Text fontSize="1rem" color="green" fontWeight="semibold">
                 size:{ele.size}
               </Text> */}
-              <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
+              {/* <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
                 {ele.color}
               </Text>
               <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
                 {ele.material}
-              </Text>
-              <Text
-                fontSize="1rem"
-                mt="0.5rem"
-                fontWeight="semibold"
-                color="green"
-              >
-                price: {ele.price}
-              </Text>
-              <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
-                {ele.quantity} left in stock
-              </Text>
+              </Text> */}
+             
 
               <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
                 Category: {ele.category}
@@ -119,6 +134,8 @@ export default function Fashion() {
                 color="white"
                 mt="1rem"
                 _hover={{ bg: "blue.500" }}
+                onClick={()=>addItem(ele)}
+
               >
                 Add to Cart
               </Button>

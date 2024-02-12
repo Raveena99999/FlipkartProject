@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Flex, Heading, Image, Text, Button } from "@chakra-ui/react";
+import { useCart } from "react-use-cart";
 
 export default function Electronics() {
   const [electronicData, setElectronicData] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollRef = useRef(null);
+
+  const {addItem} =useCart()
+
 
   async function fetchData() {
     let res = await fetch(`http://localhost:8080/electronic/`, {
@@ -169,6 +173,8 @@ export default function Electronics() {
               left="50%"
               transform="translateX(-50%)"
               _hover={{ bg: "blue.500" }}
+              onClick={()=>addItem(ele)}
+
             >
               Add to Cart
             </Button>

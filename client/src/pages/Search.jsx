@@ -2,9 +2,15 @@ import React, { useContext } from "react";
 import { Authcontext } from "../authcontext/Authcontextprovider";
 import { Box, Flex, Image, Text, Button } from "@chakra-ui/react";
 import ReactStars from "react-rating-stars-component";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 const Search = () => {
   const { searchData } = useContext(Authcontext);
   return (
+    <>
+    <Navbar/>
+    <Text fontSize="2rem" textAlign="center" color="red" >Search results:</Text>
     <Flex wrap={"wrap"} justifyContent={"space-around"} p="1rem" gap="1rem">
       {searchData?.map((ele) => (
         <Box
@@ -14,7 +20,7 @@ const Search = () => {
           boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
         >
           <Image src={ele.poster}  w="15rem" />
-          <Image src={ele.url} alt="searchurl" w="15rem" />
+          {/* <Image src={ele.url} alt="searchurl" w="15rem" /> */}
 
           <Text fontSize={"0.8rem"}>{ele.productittle}</Text>
           <Text fontSize={"0.8rem"} fontWeight={"bold"}>
@@ -37,6 +43,8 @@ const Search = () => {
         </Box>
       ))}
     </Flex>
+    <Footer/>
+    </>
   );
 };
 export default Search;

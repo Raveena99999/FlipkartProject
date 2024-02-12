@@ -3,10 +3,10 @@ import { Box, Flex, Heading, Image, Text, Button } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ReactStars from "react-rating-stars-component";
-
+import { useCart } from "react-use-cart";
 export default function DefaultProduct() {
   const [defaultData, setdefaultData] = useState([]);
-
+  const {addItem} =useCart()
   async function fetchData() {
     let res = await fetch(`http://localhost:8080/product`, {
       method: "GET",
@@ -58,13 +58,19 @@ export default function DefaultProduct() {
                 {ele.tagline}
               </Text>
               <Image
-                src={ele.url}
+                src={ele.poster}
                 alt="productLogo"
                 w="8rem"
                 borderRadius="5px"
                 display="block"
                 m="auto"
               />
+              <Text fontSize="0.8rem" mt="0.5rem" fontWeight="semibold">
+                {ele.productittle}
+              </Text>
+              <Text fontSize="0.8rem" mt="0.5rem" color="green" fontWeight="semibold">
+               price: {ele.price}
+              </Text>
               <Text fontSize="1rem" mt="0.5rem" fontWeight="semibold">
                 Hurry up,only {ele.quantity} left
               </Text>
@@ -97,6 +103,7 @@ export default function DefaultProduct() {
                 color="white"
                 mt="1rem"
                 _hover={{ bg: "blue.500" }}
+                onClick={()=>addItem(ele)}
               >
                 Add to Cart
               </Button>
